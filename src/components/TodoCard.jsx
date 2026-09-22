@@ -10,6 +10,11 @@ function TodoCard ({ todoDetails }) {
 
   //========================= handle delete todo button function===============================
   const handleDeleteBtn = todoId => {
+    const isConfirmToDelete = confirm('Do You Want to Delete??')
+    if (!isConfirmToDelete) {
+      return false
+    }
+
     const filteredTodo = todoList.filter(todo => todo.id !== todoId)
     console.log('todo id', id)
     setTodoList(filteredTodo)
