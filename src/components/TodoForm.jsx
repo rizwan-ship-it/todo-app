@@ -132,7 +132,7 @@ function TodoForm () {
               className='bg-green-600 px-2 py-1.5 rounded text-white font-bold cursor-pointer flex active:scale-97'
             >
               <FilePlusCorner />
-              update Todo
+              Update Todo
             </button>
           ) : (
             <button
