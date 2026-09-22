@@ -3,6 +3,9 @@ import React, { useContext, useState } from 'react'
 import { todoContaxt } from '../App'
 
 function TodoForm () {
+  const [titleError, setTitleError] = useState(null)
+  const [descriptionError, setDescriptionError] = useState(null)
+
   const {
     todoList,
     setTodoList,
@@ -23,9 +26,42 @@ function TodoForm () {
   }
 
   const handleTodoFormSubmit = e => {
-    e.preventDefault()
-    setTodoList(prevState => [...prevState, todoPayload])
-    setTodoFormDetails(todoForminitialize)
+    e.preventDefault();
+
+    console.log(todoFormDetails)
+
+    let isValidForm = true
+    // title validation
+    if (todoFormDetails.title.trim().length <= 0) {
+      setTitleError('Title is required')
+      isValidForm = false
+    } else if (
+      todoFormDetails.title.trim().length <= 4 ||
+      todoFormDetails.title.trim().length >= 30
+    ) {
+      setTitleError('title must be b/w 4 to 30 char')
+      isValidForm = false
+    } else {
+      setTitleError(null)
+    }
+    // description validation
+    if (todoFormDetails.description.trim().length <= 0) {
+      setDescriptionError('description is required')
+      isValidForm = false
+    } else if (
+      todoFormDetails.description.trim().length <= 8 ||
+      todoFormDetails.description.trim().length >= 100
+    ) {
+      setDescriptionError('description must be b/w 8 to 100 char')
+      isValidForm = false
+    } else {
+      setDescriptionError(null)
+    }
+
+    if (isValidForm) {
+      setTodoList(prevState => [...prevState, todoPayload])
+      setTodoFormDetails(todoForminitialize)
+    }
   }
 
   const handleUpdateTodoId = e => {
@@ -63,8 +99,10 @@ function TodoForm () {
             onChange={handleFormImput}
             className='border-2 rounded border-slate-400 px-2 py-1'
             placeholder='Enter your Todo Task'
-            required
           />
+          {titleError && (
+            <p className='text-red-600 -mt-3 capitalize'> {titleError} </p>
+          )}
         </div>
 
         {/* ===========================Text area Description======================== */}
@@ -79,8 +117,13 @@ function TodoForm () {
             className=' border-2 border-slate-400 rounded h-30 p-2'
             value={todoFormDetails.description}
             onChange={handleFormImput}
-            required
           ></textarea>
+          {descriptionError && (
+            <p className='text-red-600 -mt-3 capitalize'>
+              {' '}
+              {descriptionError}{' '}
+            </p>
+          )}
         </div>
         <div>
           {todoEditId ? (
