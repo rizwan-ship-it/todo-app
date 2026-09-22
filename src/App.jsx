@@ -29,8 +29,8 @@ function App () {
 
       }}
     >
-      <div className=' grid grid-cols-[2fr_1fr] gap-4 p-10 '>
-        <div>
+      <div className=' grid grid-cols-[2fr_1fr] gap-4 p-10 max-md:grid-cols-1  max-md:p-2'>
+        <div className='max-md:order-1'>
           <TodoCardContainer />
         </div>
         <div>
